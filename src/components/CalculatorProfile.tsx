@@ -100,7 +100,7 @@ const CalculatorProfile = ({ profile, bcvRate, parallelRate }: CalculatorProfile
       </div>
 
       {/* Modern Table */}
-      <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-lg">
+      <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-lg mb-8">
         <table className="w-full">
           {/* Header Row */}
           <thead>
@@ -166,49 +166,46 @@ const CalculatorProfile = ({ profile, bcvRate, parallelRate }: CalculatorProfile
               </tr>
             ))}
           </tbody>
-
-          {/* Totals Row */}
-          <tfoot>
-            <tr className="bg-gray-100">
-              <td className="p-4 text-center font-bold text-gray-800">
-                Total Artículos
-              </td>
-              <td className="p-4 text-center font-bold text-lg text-gray-900">
-                {totalArticles}
-              </td>
-              <td className="p-4"></td>
-              <td className="p-4"></td>
-              <td className="p-4 text-center font-bold bg-green-500 text-white rounded-bl-lg">
-                TOTAL
-              </td>
-              <td className="p-4 text-center font-bold bg-green-500 text-white">
-                TOTAL Bolívar
-              </td>
-              <td className="p-4 text-center font-bold bg-yellow-400 text-gray-900 rounded-br-lg">
-                Total Dólares
-              </td>
-            </tr>
-            <tr className="bg-gray-50">
-              <td className="p-4"></td>
-              <td className="p-4"></td>
-              <td className="p-4"></td>
-              <td className="p-4"></td>
-              <td className="p-4 text-center font-bold text-xl text-gray-900">
-                {grandTotalNormal.toFixed(1)} $
-              </td>
-              <td className="p-4 text-center font-bold text-xl text-gray-900">
-                {grandTotalBs.toFixed(0)} Bs
-              </td>
-              <td className="p-4 text-center font-bold text-xl text-gray-900">
-                {grandTotalReca.toFixed(1)} $
-              </td>
-            </tr>
-          </tfoot>
         </table>
       </div>
 
+      {/* Totals Summary */}
+      <div className="mb-8 grid grid-cols-1 md:grid-cols-4 gap-6">
+        {/* Total Articles */}
+        <Card className="p-6 rounded-2xl shadow-lg border-0" style={{ background: 'linear-gradient(135deg, #06b6d4, #0891b2)' }}>
+          <div className="text-center text-white">
+            <h3 className="text-lg font-semibold mb-2">Total Artículos</h3>
+            <p className="text-3xl font-bold">{totalArticles}</p>
+          </div>
+        </Card>
+
+        {/* Total Normal */}
+        <Card className="p-6 rounded-2xl shadow-lg border-0" style={{ background: 'linear-gradient(135deg, #3b82f6, #1d4ed8)' }}>
+          <div className="text-center text-white">
+            <h3 className="text-lg font-semibold mb-2">Total Normal</h3>
+            <p className="text-3xl font-bold">${grandTotalNormal.toFixed(1)}</p>
+          </div>
+        </Card>
+
+        {/* Total Bolivares */}
+        <Card className="p-6 rounded-2xl shadow-lg border-0" style={{ background: 'linear-gradient(135deg, #10b981, #059669)' }}>
+          <div className="text-center text-white">
+            <h3 className="text-lg font-semibold mb-2">Total Bolívares</h3>
+            <p className="text-3xl font-bold">{grandTotalBs.toFixed(0)} Bs</p>
+          </div>
+        </Card>
+
+        {/* Total RECA */}
+        <Card className="p-6 rounded-2xl shadow-lg border-0" style={{ background: 'linear-gradient(135deg, #eab308, #ca8a04)' }}>
+          <div className="text-center text-white">
+            <h3 className="text-lg font-semibold mb-2">Total RECA</h3>
+            <p className="text-3xl font-bold">${grandTotalReca.toFixed(1)}</p>
+          </div>
+        </Card>
+      </div>
+
       {/* Add Article Button */}
-      <div className="mt-8 flex justify-center">
+      <div className="flex justify-center">
         <Button
           onClick={addArticle}
           className="flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white hover:shadow-lg transition-all duration-200 px-8 py-4 text-base font-semibold rounded-2xl"

@@ -86,7 +86,7 @@ const SimpleCalculator = ({ bcvRate }: SimpleCalculatorProps) => {
       </div>
 
       {/* Modern Table */}
-      <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-lg">
+      <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-lg mb-8">
         <table className="w-full">
           {/* Header Row */}
           <thead>
@@ -148,43 +148,38 @@ const SimpleCalculator = ({ bcvRate }: SimpleCalculatorProps) => {
               </tr>
             ))}
           </tbody>
-
-          {/* Totals Row */}
-          <tfoot>
-            <tr className="bg-gray-100">
-              <td className="p-4 text-center font-bold text-gray-800">
-                Total Artículos
-              </td>
-              <td className="p-4 text-center font-bold text-lg text-gray-900">
-                {totalArticles}
-              </td>
-              <td className="p-4"></td>
-              <td className="p-4"></td>
-              <td className="p-4 text-center font-bold bg-blue-500 text-white rounded-bl-lg">
-                TOTAL DÓLARES
-              </td>
-              <td className="p-4 text-center font-bold text-white rounded-br-lg" style={{ backgroundColor: '#a6ce39' }}>
-                TOTAL BOLÍVARES
-              </td>
-            </tr>
-            <tr className="bg-gray-50">
-              <td className="p-4"></td>
-              <td className="p-4"></td>
-              <td className="p-4"></td>
-              <td className="p-4"></td>
-              <td className="p-4 text-center font-bold text-xl text-gray-900">
-                {grandTotalNormal.toFixed(2)} $
-              </td>
-              <td className="p-4 text-center font-bold text-xl text-gray-900">
-                {grandTotalBs.toFixed(0)} Bs
-              </td>
-            </tr>
-          </tfoot>
         </table>
       </div>
 
+      {/* Totals Summary */}
+      <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Total Articles */}
+        <Card className="p-6 rounded-2xl shadow-lg border-0" style={{ background: 'linear-gradient(135deg, #3b82f6, #1d4ed8)' }}>
+          <div className="text-center text-white">
+            <h3 className="text-lg font-semibold mb-2">Total Artículos</h3>
+            <p className="text-3xl font-bold">{totalArticles}</p>
+          </div>
+        </Card>
+
+        {/* Total Dollars */}
+        <Card className="p-6 rounded-2xl shadow-lg border-0" style={{ background: 'linear-gradient(135deg, #10b981, #059669)' }}>
+          <div className="text-center text-white">
+            <h3 className="text-lg font-semibold mb-2">Total Dólares</h3>
+            <p className="text-3xl font-bold">${grandTotalNormal.toFixed(2)}</p>
+          </div>
+        </Card>
+
+        {/* Total Bolivares */}
+        <Card className="p-6 rounded-2xl shadow-lg border-0" style={{ background: 'linear-gradient(135deg, #a6ce39, #8bc34a)' }}>
+          <div className="text-center text-white">
+            <h3 className="text-lg font-semibold mb-2">Total Bolívares</h3>
+            <p className="text-3xl font-bold">{grandTotalBs.toFixed(0)} Bs</p>
+          </div>
+        </Card>
+      </div>
+
       {/* Add Article Button */}
-      <div className="mt-8 flex justify-center">
+      <div className="flex justify-center">
         <Button
           onClick={addArticle}
           className="flex items-center gap-3 text-white hover:shadow-lg transition-all duration-200 px-8 py-4 text-base font-semibold rounded-2xl"
