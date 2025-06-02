@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -83,83 +84,83 @@ const CalculatorProfile = ({ profile, bcvRate, parallelRate }: CalculatorProfile
   const totalArticles = articles.reduce((sum, article) => sum + article.quantity, 0);
 
   return (
-    <Card className="p-6 bg-white shadow-xl">
+    <Card className="p-8 bg-white shadow-2xl border-0 rounded-3xl">
       {/* Header */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold text-gray-800">Perfil Comercial</h2>
-          <div className="bg-yellow-400 px-4 py-2 rounded-lg">
-            <span className="font-bold text-gray-800">BCV: {bcvRate.toFixed(2)}</span>
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-3xl font-bold text-gray-900">Perfil Comercial</h2>
+          <div className="bg-yellow-400 px-6 py-3 rounded-2xl shadow-lg">
+            <span className="font-bold text-gray-900 text-lg">BCV: {bcvRate.toFixed(2)}</span>
           </div>
         </div>
         
-        <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-3 rounded-lg mb-4">
-          <h3 className="text-xl font-bold text-center">VENTA</h3>
+        <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-2xl mb-6 shadow-lg">
+          <h3 className="text-2xl font-bold text-center">VENTA</h3>
         </div>
       </div>
 
-      {/* Excel-like Table */}
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse">
+      {/* Modern Table */}
+      <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-lg">
+        <table className="w-full">
           {/* Header Row */}
           <thead>
             <tr>
-              <th className="bg-cyan-400 border border-gray-300 p-2 text-sm font-bold">LIMPIAR</th>
-              <th className="bg-blue-400 border border-gray-300 p-2 text-sm font-bold text-white">CANT</th>
-              <th className="bg-blue-400 border border-gray-300 p-2 text-sm font-bold text-white">ARTÍCULO</th>
-              <th className="bg-blue-400 border border-gray-300 p-2 text-sm font-bold text-white">Normal</th>
-              <th className="bg-blue-400 border border-gray-300 p-2 text-sm font-bold text-white">TOTAL Normal</th>
-              <th className="bg-green-400 border border-gray-300 p-2 text-sm font-bold">TOTAL Bolívar</th>
-              <th className="bg-yellow-400 border border-gray-300 p-2 text-sm font-bold">RECA $</th>
+              <th className="bg-cyan-400 p-4 text-sm font-bold text-white rounded-tl-2xl">LIMPIAR</th>
+              <th className="bg-blue-500 p-4 text-sm font-bold text-white">CANT</th>
+              <th className="bg-blue-500 p-4 text-sm font-bold text-white">ARTÍCULO</th>
+              <th className="bg-blue-500 p-4 text-sm font-bold text-white">Normal</th>
+              <th className="bg-blue-500 p-4 text-sm font-bold text-white">TOTAL Normal</th>
+              <th className="bg-green-500 p-4 text-sm font-bold text-white">TOTAL Bolívar</th>
+              <th className="bg-yellow-400 p-4 text-sm font-bold text-gray-900 rounded-tr-2xl">RECA $</th>
             </tr>
           </thead>
 
           {/* Data Rows */}
           <tbody>
-            {articles.map((article) => (
-              <tr key={article.id}>
-                <td className="border border-gray-300 p-1 text-center">
+            {articles.map((article, index) => (
+              <tr key={article.id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                <td className="p-3 text-center border-b border-gray-200">
                   <Button
                     onClick={() => removeArticle(article.id)}
                     variant="outline"
                     size="sm"
-                    className="h-6 w-6 p-0"
+                    className="h-8 w-8 p-0 rounded-full border-2 hover:bg-red-50 hover:border-red-300 transition-all duration-200"
                   >
-                    <Trash2 className="w-3 h-3" />
+                    <Trash2 className="w-4 h-4 text-red-500" />
                   </Button>
                 </td>
-                <td className="border border-gray-300 p-1">
+                <td className="p-3 border-b border-gray-200">
                   <Input
                     type="number"
                     value={article.quantity}
                     onChange={(e) => updateArticle(article.id, 'quantity', Number(e.target.value))}
-                    className="h-8 text-center text-sm"
+                    className="h-10 text-center text-base font-semibold rounded-xl border-2 focus:border-blue-400"
                   />
                 </td>
-                <td className="border border-gray-300 p-1">
+                <td className="p-3 border-b border-gray-200">
                   <Input
                     type="text"
                     value={article.name}
                     onChange={(e) => updateArticle(article.id, 'name', e.target.value)}
-                    className="h-8 text-sm"
+                    className="h-10 text-base font-medium rounded-xl border-2 focus:border-blue-400"
                   />
                 </td>
-                <td className="border border-gray-300 p-1">
+                <td className="p-3 border-b border-gray-200">
                   <Input
                     type="number"
                     step="0.01"
                     value={article.normalPrice}
                     onChange={(e) => updateArticle(article.id, 'normalPrice', Number(e.target.value))}
-                    className="h-8 text-center text-sm"
+                    className="h-10 text-center text-base font-semibold rounded-xl border-2 focus:border-blue-400"
                   />
                 </td>
-                <td className="border border-gray-300 p-2 text-center text-sm bg-gray-50">
+                <td className="p-4 text-center text-base font-bold border-b border-gray-200 bg-gray-50">
                   {(article.normalPrice * article.quantity).toFixed(1)} $
                 </td>
-                <td className="border border-gray-300 p-2 text-center text-sm bg-gray-50">
+                <td className="p-4 text-center text-base font-bold border-b border-gray-200 bg-gray-50">
                   {(article.totalBs * article.quantity).toFixed(0)} Bs
                 </td>
-                <td className="border border-gray-300 p-2 text-center text-sm bg-yellow-100">
+                <td className="p-4 text-center text-base font-bold border-b border-gray-200 bg-yellow-100">
                   {(article.recaDollars * article.quantity).toFixed(1)} $
                 </td>
               </tr>
@@ -168,37 +169,37 @@ const CalculatorProfile = ({ profile, bcvRate, parallelRate }: CalculatorProfile
 
           {/* Totals Row */}
           <tfoot>
-            <tr>
-              <td className="border border-gray-300 p-2 text-center font-bold bg-gray-200">
+            <tr className="bg-gray-100">
+              <td className="p-4 text-center font-bold text-gray-800">
                 Total Artículos
               </td>
-              <td className="border border-gray-300 p-2 text-center font-bold bg-gray-100">
+              <td className="p-4 text-center font-bold text-lg text-gray-900">
                 {totalArticles}
               </td>
-              <td className="border border-gray-300 p-2"></td>
-              <td className="border border-gray-300 p-2"></td>
-              <td className="border border-gray-300 p-2 text-center font-bold bg-green-400">
+              <td className="p-4"></td>
+              <td className="p-4"></td>
+              <td className="p-4 text-center font-bold bg-green-500 text-white rounded-bl-lg">
                 TOTAL
               </td>
-              <td className="border border-gray-300 p-2 text-center font-bold bg-green-400">
+              <td className="p-4 text-center font-bold bg-green-500 text-white">
                 TOTAL Bolívar
               </td>
-              <td className="border border-gray-300 p-2 text-center font-bold bg-yellow-400">
+              <td className="p-4 text-center font-bold bg-yellow-400 text-gray-900 rounded-br-lg">
                 Total Dólares
               </td>
             </tr>
-            <tr>
-              <td className="border border-gray-300 p-2"></td>
-              <td className="border border-gray-300 p-2"></td>
-              <td className="border border-gray-300 p-2"></td>
-              <td className="border border-gray-300 p-2"></td>
-              <td className="border border-gray-300 p-2 text-center font-bold text-lg">
+            <tr className="bg-gray-50">
+              <td className="p-4"></td>
+              <td className="p-4"></td>
+              <td className="p-4"></td>
+              <td className="p-4"></td>
+              <td className="p-4 text-center font-bold text-xl text-gray-900">
                 {grandTotalNormal.toFixed(1)} $
               </td>
-              <td className="border border-gray-300 p-2 text-center font-bold text-lg">
+              <td className="p-4 text-center font-bold text-xl text-gray-900">
                 {grandTotalBs.toFixed(0)} Bs
               </td>
-              <td className="border border-gray-300 p-2 text-center font-bold text-lg bg-yellow-300">
+              <td className="p-4 text-center font-bold text-xl text-gray-900">
                 {grandTotalReca.toFixed(1)} $
               </td>
             </tr>
@@ -207,12 +208,12 @@ const CalculatorProfile = ({ profile, bcvRate, parallelRate }: CalculatorProfile
       </div>
 
       {/* Add Article Button */}
-      <div className="mt-4 flex justify-center">
+      <div className="mt-8 flex justify-center">
         <Button
           onClick={addArticle}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700"
+          className="flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white hover:shadow-lg transition-all duration-200 px-8 py-4 text-base font-semibold rounded-2xl"
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="w-5 h-5" />
           Agregar Artículo
         </Button>
       </div>
