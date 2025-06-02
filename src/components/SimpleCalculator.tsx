@@ -1,59 +1,48 @@
+
 import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Trash2, Plus } from 'lucide-react';
-import SimpleCalculator from './SimpleCalculator';
 
-interface Article {
+interface SimpleArticle {
   id: string;
   quantity: number;
   name: string;
   normalPrice: number;
   totalBs: number;
-  recaDollars: number;
 }
 
-interface CalculatorProfileProps {
-  profile: 'perfil1' | 'perfil2';
+interface SimpleCalculatorProps {
   bcvRate: number;
-  parallelRate: number;
 }
 
-const CalculatorProfile = ({ profile, bcvRate, parallelRate }: CalculatorProfileProps) => {
-  // If profile 2, use the simple calculator
-  if (profile === 'perfil2') {
-    return <SimpleCalculator bcvRate={bcvRate} />;
-  }
-
-  const [articles, setArticles] = useState<Article[]>([
-    { id: '1', quantity: 1, name: 'bicicleta', normalPrice: 10, totalBs: 0, recaDollars: 0 }
+const SimpleCalculator = ({ bcvRate }: SimpleCalculatorProps) => {
+  const [articles, setArticles] = useState<SimpleArticle[]>([
+    { id: '1', quantity: 1, name: 'producto', normalPrice: 10, totalBs: 0 }
   ]);
 
   // Calculate totals
-  const calculateTotals = (article: Article) => {
-    const totalBs = article.normalPrice * bcvRate * parallelRate / bcvRate;
-    const recaDollars = totalBs / bcvRate;
-    return { totalBs, recaDollars };
+  const calculateTotalBs = (article: SimpleArticle) => {
+    return article.normalPrice * bcvRate;
   };
 
-  // Update calculations when rates or articles change
+  // Update calculations when rate or articles change
   useEffect(() => {
     setArticles(prevArticles => 
-      prevArticles.map(article => {
-        const { totalBs, recaDollars } = calculateTotals(article);
-        return { ...article, totalBs, recaDollars };
-      })
+      prevArticles.map(article => ({
+        ...article,
+        totalBs: calculateTotalBs(article)
+      }))
     );
-  }, [bcvRate, parallelRate]);
+  }, [bcvRate]);
 
-  const updateArticle = (id: string, field: keyof Article, value: any) => {
+  const updateArticle = (id: string, field: keyof SimpleArticle, value: any) => {
     setArticles(prevArticles =>
       prevArticles.map(article => {
         if (article.id === id) {
           const updated = { ...article, [field]: value };
-          const { totalBs, recaDollars } = calculateTotals(updated);
-          return { ...updated, totalBs, recaDollars };
+          return { ...updated, totalBs: calculateTotalBs(updated) };
         }
         return article;
       })
@@ -62,13 +51,12 @@ const CalculatorProfile = ({ profile, bcvRate, parallelRate }: CalculatorProfile
 
   const addArticle = () => {
     const newId = (articles.length + 1).toString();
-    const newArticle: Article = {
+    const newArticle: SimpleArticle = {
       id: newId,
       quantity: 1,
       name: '',
       normalPrice: 0,
-      totalBs: 0,
-      recaDollars: 0
+      totalBs: 0
     };
     setArticles([...articles, newArticle]);
   };
@@ -79,7 +67,6 @@ const CalculatorProfile = ({ profile, bcvRate, parallelRate }: CalculatorProfile
 
   const grandTotalNormal = articles.reduce((sum, article) => sum + (article.normalPrice * article.quantity), 0);
   const grandTotalBs = articles.reduce((sum, article) => sum + (article.totalBs * article.quantity), 0);
-  const grandTotalReca = articles.reduce((sum, article) => sum + (article.recaDollars * article.quantity), 0);
   const totalArticles = articles.reduce((sum, article) => sum + article.quantity, 0);
 
   return (
@@ -87,18 +74,18 @@ const CalculatorProfile = ({ profile, bcvRate, parallelRate }: CalculatorProfile
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold text-gray-800">Perfil Comercial</h2>
+          <h2 className="text-2xl font-bold text-gray-800">Calculadora Simple</h2>
           <div className="bg-yellow-400 px-4 py-2 rounded-lg">
             <span className="font-bold text-gray-800">BCV: {bcvRate.toFixed(2)}</span>
           </div>
         </div>
         
-        <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-3 rounded-lg mb-4">
-          <h3 className="text-xl font-bold text-center">VENTA</h3>
+        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-3 rounded-lg mb-4">
+          <h3 className="text-xl font-bold text-center">VENTA SIMPLE</h3>
         </div>
       </div>
 
-      {/* Excel-like Table */}
+      {/* Simple Table */}
       <div className="overflow-x-auto">
         <table className="w-full border-collapse">
           {/* Header Row */}
@@ -107,10 +94,9 @@ const CalculatorProfile = ({ profile, bcvRate, parallelRate }: CalculatorProfile
               <th className="bg-cyan-400 border border-gray-300 p-2 text-sm font-bold">LIMPIAR</th>
               <th className="bg-blue-400 border border-gray-300 p-2 text-sm font-bold text-white">CANT</th>
               <th className="bg-blue-400 border border-gray-300 p-2 text-sm font-bold text-white">ARTÍCULO</th>
-              <th className="bg-blue-400 border border-gray-300 p-2 text-sm font-bold text-white">Normal</th>
-              <th className="bg-blue-400 border border-gray-300 p-2 text-sm font-bold text-white">TOTAL Normal</th>
-              <th className="bg-green-400 border border-gray-300 p-2 text-sm font-bold">TOTAL Bolívar</th>
-              <th className="bg-yellow-400 border border-gray-300 p-2 text-sm font-bold">RECA $</th>
+              <th className="bg-blue-400 border border-gray-300 p-2 text-sm font-bold text-white">Precio Normal ($)</th>
+              <th className="bg-blue-400 border border-gray-300 p-2 text-sm font-bold text-white">TOTAL Normal ($)</th>
+              <th className="bg-green-400 border border-gray-300 p-2 text-sm font-bold">TOTAL Bolívares</th>
             </tr>
           </thead>
 
@@ -154,13 +140,10 @@ const CalculatorProfile = ({ profile, bcvRate, parallelRate }: CalculatorProfile
                   />
                 </td>
                 <td className="border border-gray-300 p-2 text-center text-sm bg-gray-50">
-                  {(article.normalPrice * article.quantity).toFixed(1)} $
+                  {(article.normalPrice * article.quantity).toFixed(2)} $
                 </td>
-                <td className="border border-gray-300 p-2 text-center text-sm bg-gray-50">
+                <td className="border border-gray-300 p-2 text-center text-sm bg-green-100">
                   {(article.totalBs * article.quantity).toFixed(0)} Bs
-                </td>
-                <td className="border border-gray-300 p-2 text-center text-sm bg-yellow-100">
-                  {(article.recaDollars * article.quantity).toFixed(1)} $
                 </td>
               </tr>
             ))}
@@ -177,14 +160,11 @@ const CalculatorProfile = ({ profile, bcvRate, parallelRate }: CalculatorProfile
               </td>
               <td className="border border-gray-300 p-2"></td>
               <td className="border border-gray-300 p-2"></td>
-              <td className="border border-gray-300 p-2 text-center font-bold bg-green-400">
-                TOTAL
+              <td className="border border-gray-300 p-2 text-center font-bold bg-blue-400 text-white">
+                TOTAL DÓLARES
               </td>
               <td className="border border-gray-300 p-2 text-center font-bold bg-green-400">
-                TOTAL Bolívar
-              </td>
-              <td className="border border-gray-300 p-2 text-center font-bold bg-yellow-400">
-                Total Dólares
+                TOTAL BOLÍVARES
               </td>
             </tr>
             <tr>
@@ -193,13 +173,10 @@ const CalculatorProfile = ({ profile, bcvRate, parallelRate }: CalculatorProfile
               <td className="border border-gray-300 p-2"></td>
               <td className="border border-gray-300 p-2"></td>
               <td className="border border-gray-300 p-2 text-center font-bold text-lg">
-                {grandTotalNormal.toFixed(1)} $
+                {grandTotalNormal.toFixed(2)} $
               </td>
-              <td className="border border-gray-300 p-2 text-center font-bold text-lg">
+              <td className="border border-gray-300 p-2 text-center font-bold text-lg bg-green-300">
                 {grandTotalBs.toFixed(0)} Bs
-              </td>
-              <td className="border border-gray-300 p-2 text-center font-bold text-lg bg-yellow-300">
-                {grandTotalReca.toFixed(1)} $
               </td>
             </tr>
           </tfoot>
@@ -210,7 +187,7 @@ const CalculatorProfile = ({ profile, bcvRate, parallelRate }: CalculatorProfile
       <div className="mt-4 flex justify-center">
         <Button
           onClick={addArticle}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700"
+          className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
         >
           <Plus className="w-4 h-4" />
           Agregar Artículo
@@ -220,4 +197,4 @@ const CalculatorProfile = ({ profile, bcvRate, parallelRate }: CalculatorProfile
   );
 };
 
-export default CalculatorProfile;
+export default SimpleCalculator;
