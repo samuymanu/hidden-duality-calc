@@ -75,12 +75,12 @@ const SimpleCalculator = ({ bcvRate }: SimpleCalculatorProps) => {
       <div className="mb-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold text-gray-800">Calculadora Simple</h2>
-          <div className="bg-yellow-400 px-4 py-2 rounded-lg">
-            <span className="font-bold text-gray-800">BCV: {bcvRate.toFixed(2)}</span>
+          <div className="px-4 py-2 rounded-lg" style={{ backgroundColor: '#a6ce39' }}>
+            <span className="font-bold text-white">BCV: {bcvRate.toFixed(2)}</span>
           </div>
         </div>
         
-        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-3 rounded-lg mb-4">
+        <div className="text-white p-3 rounded-lg mb-4" style={{ background: 'linear-gradient(to right, #a6ce39, #8bc34a)' }}>
           <h3 className="text-xl font-bold text-center">VENTA SIMPLE</h3>
         </div>
       </div>
@@ -91,12 +91,12 @@ const SimpleCalculator = ({ bcvRate }: SimpleCalculatorProps) => {
           {/* Header Row */}
           <thead>
             <tr>
-              <th className="bg-cyan-400 border border-gray-300 p-2 text-sm font-bold">LIMPIAR</th>
+              <th className="border border-gray-300 p-2 text-sm font-bold" style={{ backgroundColor: '#a6ce39', color: 'white' }}>LIMPIAR</th>
               <th className="bg-blue-400 border border-gray-300 p-2 text-sm font-bold text-white">CANT</th>
               <th className="bg-blue-400 border border-gray-300 p-2 text-sm font-bold text-white">ARTÍCULO</th>
               <th className="bg-blue-400 border border-gray-300 p-2 text-sm font-bold text-white">Precio Normal ($)</th>
               <th className="bg-blue-400 border border-gray-300 p-2 text-sm font-bold text-white">TOTAL Normal ($)</th>
-              <th className="bg-green-400 border border-gray-300 p-2 text-sm font-bold">TOTAL Bolívares</th>
+              <th className="border border-gray-300 p-2 text-sm font-bold text-white" style={{ backgroundColor: '#a6ce39' }}>TOTAL Bolívares</th>
             </tr>
           </thead>
 
@@ -142,7 +142,7 @@ const SimpleCalculator = ({ bcvRate }: SimpleCalculatorProps) => {
                 <td className="border border-gray-300 p-2 text-center text-sm bg-gray-50">
                   {(article.normalPrice * article.quantity).toFixed(2)} $
                 </td>
-                <td className="border border-gray-300 p-2 text-center text-sm bg-green-100">
+                <td className="border border-gray-300 p-2 text-center text-sm" style={{ backgroundColor: 'rgba(166, 206, 57, 0.2)' }}>
                   {(article.totalBs * article.quantity).toFixed(0)} Bs
                 </td>
               </tr>
@@ -163,7 +163,7 @@ const SimpleCalculator = ({ bcvRate }: SimpleCalculatorProps) => {
               <td className="border border-gray-300 p-2 text-center font-bold bg-blue-400 text-white">
                 TOTAL DÓLARES
               </td>
-              <td className="border border-gray-300 p-2 text-center font-bold bg-green-400">
+              <td className="border border-gray-300 p-2 text-center font-bold text-white" style={{ backgroundColor: '#a6ce39' }}>
                 TOTAL BOLÍVARES
               </td>
             </tr>
@@ -175,7 +175,7 @@ const SimpleCalculator = ({ bcvRate }: SimpleCalculatorProps) => {
               <td className="border border-gray-300 p-2 text-center font-bold text-lg">
                 {grandTotalNormal.toFixed(2)} $
               </td>
-              <td className="border border-gray-300 p-2 text-center font-bold text-lg bg-green-300">
+              <td className="border border-gray-300 p-2 text-center font-bold text-lg" style={{ backgroundColor: 'rgba(166, 206, 57, 0.3)' }}>
                 {grandTotalBs.toFixed(0)} Bs
               </td>
             </tr>
@@ -187,7 +187,8 @@ const SimpleCalculator = ({ bcvRate }: SimpleCalculatorProps) => {
       <div className="mt-4 flex justify-center">
         <Button
           onClick={addArticle}
-          className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
+          className="flex items-center gap-2 text-white hover:opacity-90"
+          style={{ backgroundColor: '#a6ce39' }}
         >
           <Plus className="w-4 h-4" />
           Agregar Artículo
