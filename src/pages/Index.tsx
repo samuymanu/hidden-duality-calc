@@ -32,74 +32,73 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Configuration Section - Ultra minimalist */}
+        {/* Configuration Section - Ultra minimalist and discrete */}
         <div className="mb-8 flex justify-end">
-          <div className="flex gap-3">
-            {/* Profile Selector */}
-            <Card className="overflow-hidden shadow-lg border-0 rounded-2xl" style={{ backgroundColor: 'rgba(166, 206, 57, 0.08)' }}>
+          <div className="flex gap-2">
+            {/* Profile Selector - More discrete */}
+            <Card className="overflow-hidden shadow-sm border border-gray-200 rounded-xl">
               <div 
-                className="p-4 cursor-pointer flex items-center gap-3 hover:bg-white/50 transition-all duration-200 rounded-2xl"
+                className="px-3 py-2 cursor-pointer flex items-center gap-2 hover:bg-gray-50 transition-all duration-200 rounded-xl"
                 onClick={() => setShowProfileSelector(!showProfileSelector)}
               >
-                <Settings className="w-5 h-5 text-gray-700" />
-                <span className="text-sm font-semibold text-gray-800">Perfiles</span>
+                <Settings className="w-4 h-4 text-gray-500" />
                 {showProfileSelector ? (
-                  <ChevronUp className="w-4 h-4 text-gray-600" />
+                  <ChevronUp className="w-3 h-3 text-gray-500" />
                 ) : (
-                  <ChevronDown className="w-4 h-4 text-gray-600" />
+                  <ChevronDown className="w-3 h-3 text-gray-500" />
                 )}
               </div>
               
-              <div className={`transition-all duration-300 ease-in-out ${showProfileSelector ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
-                <div className="p-4 pt-0 flex gap-3">
+              <div className={`transition-all duration-300 ease-in-out ${showProfileSelector ? 'max-h-32 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
+                <div className="p-3 pt-0 flex gap-2">
                   <Button
                     onClick={() => setActiveProfile('perfil1')}
                     variant={activeProfile === 'perfil1' ? 'default' : 'outline'}
                     size="sm"
-                    className={`flex items-center gap-2 text-sm font-medium rounded-xl transition-all duration-200 ${
+                    className={`flex items-center gap-1 text-xs font-medium rounded-lg transition-all duration-200 px-3 py-1.5 ${
                       activeProfile === 'perfil1' 
-                        ? 'text-white shadow-lg' 
-                        : 'border-2 text-gray-700 hover:bg-gray-50'
+                        ? 'text-white shadow-md' 
+                        : 'border text-gray-600 hover:bg-gray-50'
                     }`}
                     style={activeProfile === 'perfil1' ? { backgroundColor: '#a6ce39' } : {}}
                   >
-                    <Calculator className="w-4 h-4" />
+                    <Calculator className="w-3 h-3" />
                     Comercial
                   </Button>
                   <Button
                     onClick={() => setActiveProfile('perfil2')}
                     variant={activeProfile === 'perfil2' ? 'default' : 'outline'}
                     size="sm"
-                    className={`flex items-center gap-2 text-sm font-medium rounded-xl transition-all duration-200 ${
+                    className={`flex items-center gap-1 text-xs font-medium rounded-lg transition-all duration-200 px-3 py-1.5 ${
                       activeProfile === 'perfil2' 
-                        ? 'text-white shadow-lg' 
-                        : 'border-2 text-gray-700 hover:bg-gray-50'
+                        ? 'text-white shadow-md' 
+                        : 'border text-gray-600 hover:bg-gray-50'
                     }`}
                     style={activeProfile === 'perfil2' ? { backgroundColor: '#a6ce39' } : {}}
                   >
-                    <DollarSign className="w-4 h-4" />
+                    <DollarSign className="w-3 h-3" />
                     Simple
                   </Button>
                 </div>
               </div>
             </Card>
 
-            {/* Rates Configuration */}
-            <Card className="overflow-hidden shadow-lg border-0 rounded-2xl" style={{ backgroundColor: 'rgba(166, 206, 57, 0.08)' }}>
+            {/* Rates Configuration - More discrete */}
+            <Card className="overflow-hidden shadow-sm border border-gray-200 rounded-xl">
               <div 
-                className="p-4 cursor-pointer flex items-center gap-3 hover:bg-white/50 transition-all duration-200 rounded-2xl"
+                className="px-3 py-2 cursor-pointer flex items-center gap-2 hover:bg-gray-50 transition-all duration-200 rounded-xl"
                 onClick={() => setShowRatesConfig(!showRatesConfig)}
               >
-                <span className="text-sm font-semibold text-gray-800">Tasas</span>
+                <span className="text-xs font-medium text-gray-600">$</span>
                 {showRatesConfig ? (
-                  <ChevronUp className="w-4 h-4 text-gray-600" />
+                  <ChevronUp className="w-3 h-3 text-gray-500" />
                 ) : (
-                  <ChevronDown className="w-4 h-4 text-gray-600" />
+                  <ChevronDown className="w-3 h-3 text-gray-500" />
                 )}
               </div>
               
               <div className={`transition-all duration-300 ease-in-out ${showRatesConfig ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
-                <div className="px-4 pb-4">
+                <div className="px-3 pb-3">
                   <RatesConfig
                     bcvRate={bcvRate}
                     parallelRate={parallelRate}

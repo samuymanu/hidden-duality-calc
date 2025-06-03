@@ -86,7 +86,7 @@ const SimpleCalculator = ({ bcvRate }: SimpleCalculatorProps) => {
       </div>
 
       {/* Modern Table */}
-      <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-lg mb-8">
+      <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-lg mb-4">
         <table className="w-full">
           {/* Header Row */}
           <thead>
@@ -151,8 +151,20 @@ const SimpleCalculator = ({ bcvRate }: SimpleCalculatorProps) => {
         </table>
       </div>
 
+      {/* Add Article Button - Now closer to the table */}
+      <div className="flex justify-center mb-8">
+        <Button
+          onClick={addArticle}
+          className="flex items-center gap-3 text-white hover:shadow-lg transition-all duration-200 px-8 py-4 text-base font-semibold rounded-2xl"
+          style={{ backgroundColor: '#a6ce39' }}
+        >
+          <Plus className="w-5 h-5" />
+          Agregar Artículo
+        </Button>
+      </div>
+
       {/* Totals Summary */}
-      <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Total Articles */}
         <Card className="p-6 rounded-2xl shadow-lg border-0" style={{ background: 'linear-gradient(135deg, #3b82f6, #1d4ed8)' }}>
           <div className="text-center text-white">
@@ -176,18 +188,6 @@ const SimpleCalculator = ({ bcvRate }: SimpleCalculatorProps) => {
             <p className="text-3xl font-bold">{grandTotalBs.toFixed(0)} Bs</p>
           </div>
         </Card>
-      </div>
-
-      {/* Add Article Button */}
-      <div className="flex justify-center">
-        <Button
-          onClick={addArticle}
-          className="flex items-center gap-3 text-white hover:shadow-lg transition-all duration-200 px-8 py-4 text-base font-semibold rounded-2xl"
-          style={{ backgroundColor: '#a6ce39' }}
-        >
-          <Plus className="w-5 h-5" />
-          Agregar Artículo
-        </Button>
       </div>
     </Card>
   );
