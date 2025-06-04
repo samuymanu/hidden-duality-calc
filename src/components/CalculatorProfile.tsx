@@ -78,26 +78,19 @@ const CalculatorProfile = ({ bcvRate, parallelRate }: CalculatorProfileProps) =>
   const totalQuantity = articles.reduce((sum, article) => sum + article.quantity, 0);
 
   return (
-    <Card className="p-4 bg-white shadow-2xl border-0 rounded-3xl">
-      {/* Header */}
-      <div className="mb-4">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-xl font-bold text-gray-900">Calculadora</h2>
-          <div className="bg-yellow-400 px-3 py-1 rounded-xl shadow-lg">
-            <span className="font-bold text-gray-900 text-sm">BCV: {bcvRate.toFixed(2)}</span>
-          </div>
-        </div>
-        
-        <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-3 rounded-2xl mb-4 shadow-lg">
-          <h3 className="text-lg font-bold text-center">VENTA</h3>
+    <Card className="p-6 bg-white shadow-2xl border-0 rounded-3xl">
+      {/* BCV Rate Display */}
+      <div className="flex justify-center mb-6">
+        <div className="bg-yellow-400 px-4 py-2 rounded-xl shadow-lg">
+          <span className="font-bold text-gray-900 text-base">BCV: {bcvRate.toFixed(2)}</span>
         </div>
       </div>
 
-      {/* Simplified Items List */}
-      <div className="space-y-3 mb-4">
+      {/* Items List - Bigger size */}
+      <div className="space-y-4 mb-6">
         {articles.map((article, index) => (
-          <Card key={article.id} className="p-3 bg-gray-50 rounded-2xl border-2 border-gray-200">
-            <div className="grid grid-cols-12 gap-2 items-center">
+          <Card key={article.id} className="p-4 bg-gray-50 rounded-2xl border-2 border-gray-200">
+            <div className="grid grid-cols-12 gap-3 items-center">
               {/* Delete Button */}
               <div className="col-span-2">
                 <Button
@@ -105,31 +98,36 @@ const CalculatorProfile = ({ bcvRate, parallelRate }: CalculatorProfileProps) =>
                   variant="outline"
                   size="sm"
                   disabled={articles.length === 1}
-                  className="h-8 w-8 p-0 rounded-full border-2 hover:bg-red-50 hover:border-red-300 transition-all duration-200 active:scale-95"
+                  className="h-10 w-10 p-0 rounded-full border-2 hover:bg-red-50 hover:border-red-300 transition-all duration-200 active:scale-95"
                 >
-                  <Trash2 className="w-3 h-3 text-red-500" />
+                  <Trash2 className="w-4 h-4 text-red-500" />
                 </Button>
               </div>
 
-              {/* Quantity */}
+              {/* Quantity - Integer only */}
               <div className="col-span-3">
                 <Input
                   type="number"
+                  min="1"
+                  step="1"
                   value={article.quantity || ''}
-                  onChange={(e) => updateArticle(article.id, 'quantity', Number(e.target.value) || 1)}
-                  className="h-10 text-center text-sm font-semibold rounded-xl border-2 focus:border-blue-400"
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value) || 1;
+                    updateArticle(article.id, 'quantity', value);
+                  }}
+                  className="h-12 text-center text-base font-semibold rounded-xl border-2 focus:border-blue-400"
                   placeholder="Cant."
                 />
               </div>
 
-              {/* Price */}
+              {/* Price - Bigger input */}
               <div className="col-span-7">
                 <Input
                   type="number"
                   step="0.01"
                   value={article.price || ''}
                   onChange={(e) => updateArticle(article.id, 'price', Number(e.target.value) || 0)}
-                  className="h-10 text-center text-sm font-semibold rounded-xl border-2 focus:border-blue-400"
+                  className="h-12 text-center text-base font-semibold rounded-xl border-2 focus:border-blue-400"
                   placeholder="Precio $"
                 />
               </div>
@@ -138,48 +136,48 @@ const CalculatorProfile = ({ bcvRate, parallelRate }: CalculatorProfileProps) =>
         ))}
       </div>
 
-      {/* Add Article Button */}
-      <div className="flex justify-center mb-6">
+      {/* Add Article Button - Bigger */}
+      <div className="flex justify-center mb-8">
         <Button
           onClick={addArticle}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white hover:shadow-lg transition-all duration-200 px-6 py-3 text-base font-semibold rounded-2xl active:scale-95"
+          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white hover:shadow-lg transition-all duration-200 px-8 py-4 text-lg font-semibold rounded-2xl active:scale-95"
         >
-          <Plus className="w-5 h-5" />
+          <Plus className="w-6 h-6" />
           Agregar Artículo
         </Button>
       </div>
 
-      {/* Totals Summary */}
-      <div className="grid grid-cols-2 gap-3">
+      {/* Totals Summary - Bigger cards */}
+      <div className="grid grid-cols-2 gap-4">
         {/* Total Quantity */}
-        <Card className="p-4 rounded-2xl shadow-lg border-0" style={{ background: 'linear-gradient(135deg, #06b6d4, #0891b2)' }}>
+        <Card className="p-5 rounded-2xl shadow-lg border-0" style={{ background: 'linear-gradient(135deg, #06b6d4, #0891b2)' }}>
           <div className="text-center text-white">
-            <h3 className="text-sm font-semibold mb-1">Cantidad Total</h3>
-            <p className="text-2xl font-bold">{totalQuantity}</p>
+            <h3 className="text-base font-semibold mb-2">Cantidad Total</h3>
+            <p className="text-3xl font-bold">{totalQuantity}</p>
           </div>
         </Card>
 
         {/* Total Price */}
-        <Card className="p-4 rounded-2xl shadow-lg border-0" style={{ background: 'linear-gradient(135deg, #3b82f6, #1d4ed8)' }}>
+        <Card className="p-5 rounded-2xl shadow-lg border-0" style={{ background: 'linear-gradient(135deg, #3b82f6, #1d4ed8)' }}>
           <div className="text-center text-white">
-            <h3 className="text-sm font-semibold mb-1">Total $</h3>
-            <p className="text-2xl font-bold">${grandTotalPrice.toFixed(1)}</p>
+            <h3 className="text-base font-semibold mb-2">Total $</h3>
+            <p className="text-3xl font-bold">${grandTotalPrice.toFixed(1)}</p>
           </div>
         </Card>
 
         {/* Total Bolivares */}
-        <Card className="p-4 rounded-2xl shadow-lg border-0" style={{ background: 'linear-gradient(135deg, #10b981, #059669)' }}>
+        <Card className="p-5 rounded-2xl shadow-lg border-0" style={{ background: 'linear-gradient(135deg, #10b981, #059669)' }}>
           <div className="text-center text-white">
-            <h3 className="text-sm font-semibold mb-1">Total Bolívares</h3>
-            <p className="text-2xl font-bold">{grandTotalBs.toFixed(0)} Bs</p>
+            <h3 className="text-base font-semibold mb-2">Total Bolívares</h3>
+            <p className="text-3xl font-bold">{grandTotalBs.toFixed(0)} Bs</p>
           </div>
         </Card>
 
         {/* Total RECA */}
-        <Card className="p-4 rounded-2xl shadow-lg border-0" style={{ background: 'linear-gradient(135deg, #eab308, #ca8a04)' }}>
+        <Card className="p-5 rounded-2xl shadow-lg border-0" style={{ background: 'linear-gradient(135deg, #eab308, #ca8a04)' }}>
           <div className="text-center text-white">
-            <h3 className="text-sm font-semibold mb-1">Total RECA</h3>
-            <p className="text-2xl font-bold">${grandTotalReca.toFixed(1)}</p>
+            <h3 className="text-base font-semibold mb-2">Total RECA</h3>
+            <p className="text-3xl font-bold">${grandTotalReca.toFixed(1)}</p>
           </div>
         </Card>
       </div>

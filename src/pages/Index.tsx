@@ -13,35 +13,19 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 p-3">
       <div className="max-w-md mx-auto">
-        {/* Header with CasaGil Branding - Mobile optimized */}
-        <div className="mb-6 text-center">
-          <div className="mb-4">
-            <h1 className="text-3xl font-bold mb-2" style={{ color: '#a6ce39' }}>
-              CasaGil
-            </h1>
-            <div className="w-24 h-1 mx-auto mb-3 rounded-full" style={{ backgroundColor: '#a6ce39' }}></div>
-            <h2 className="text-lg font-light text-gray-800 mb-1">
-              Calculadora de Ventas
-            </h2>
-            <p className="text-sm text-gray-600 font-medium">
-              Cálculo rápido de precios
-            </p>
-          </div>
-        </div>
-
-        {/* Rates Configuration - Mobile friendly */}
+        {/* Rates Configuration - More prominent */}
         <div className="mb-4 flex justify-center">
-          <Card className="overflow-hidden shadow-sm border border-gray-200 rounded-2xl">
+          <Card className="overflow-hidden shadow-md border border-gray-200 rounded-2xl w-full">
             <div 
-              className="px-4 py-3 cursor-pointer flex items-center gap-2 hover:bg-gray-50 transition-all duration-200 rounded-2xl active:scale-95"
+              className="px-5 py-4 cursor-pointer flex items-center justify-center gap-3 hover:bg-gray-50 transition-all duration-200 rounded-2xl active:scale-95"
               onClick={() => setShowRatesConfig(!showRatesConfig)}
             >
-              <DollarSign className="w-5 h-5 text-gray-500" />
-              <span className="text-sm font-medium text-gray-600">Tasas</span>
+              <DollarSign className="w-6 h-6 text-gray-500" />
+              <span className="text-base font-semibold text-gray-700">Configurar Tasas</span>
               {showRatesConfig ? (
-                <ChevronUp className="w-4 h-4 text-gray-500" />
+                <ChevronUp className="w-5 h-5 text-gray-500" />
               ) : (
-                <ChevronDown className="w-4 h-4 text-gray-500" />
+                <ChevronDown className="w-5 h-5 text-gray-500" />
               )}
             </div>
             
@@ -59,7 +43,7 @@ const Index = () => {
           </Card>
         </div>
 
-        {/* Calculator Profile */}
+        {/* Calculator Profile - Takes most of the screen */}
         <CalculatorProfile
           profile="perfil1"
           bcvRate={bcvRate}
