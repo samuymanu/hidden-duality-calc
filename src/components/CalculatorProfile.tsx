@@ -115,8 +115,8 @@ const CalculatorProfile = ({ bcvRate, parallelRate }: CalculatorProfileProps) =>
               <div className="col-span-3">
                 <Input
                   type="number"
-                  value={article.quantity}
-                  onChange={(e) => updateArticle(article.id, 'quantity', Number(e.target.value))}
+                  value={article.quantity || ''}
+                  onChange={(e) => updateArticle(article.id, 'quantity', Number(e.target.value) || 1)}
                   className="h-10 text-center text-sm font-semibold rounded-xl border-2 focus:border-blue-400"
                   placeholder="Cant."
                 />
@@ -127,27 +127,11 @@ const CalculatorProfile = ({ bcvRate, parallelRate }: CalculatorProfileProps) =>
                 <Input
                   type="number"
                   step="0.01"
-                  value={article.price}
-                  onChange={(e) => updateArticle(article.id, 'price', Number(e.target.value))}
+                  value={article.price || ''}
+                  onChange={(e) => updateArticle(article.id, 'price', Number(e.target.value) || 0)}
                   className="h-10 text-center text-sm font-semibold rounded-xl border-2 focus:border-blue-400"
                   placeholder="Precio $"
                 />
-              </div>
-            </div>
-
-            {/* Results */}
-            <div className="mt-2 grid grid-cols-3 gap-2 text-xs">
-              <div className="text-center p-2 bg-blue-100 rounded-lg">
-                <div className="font-semibold text-blue-800">Total $</div>
-                <div className="font-bold">{(article.price * article.quantity).toFixed(1)}</div>
-              </div>
-              <div className="text-center p-2 bg-green-100 rounded-lg">
-                <div className="font-semibold text-green-800">Bolívares</div>
-                <div className="font-bold">{(article.totalBs * article.quantity).toFixed(0)}</div>
-              </div>
-              <div className="text-center p-2 bg-yellow-100 rounded-lg">
-                <div className="font-semibold text-yellow-800">RECA $</div>
-                <div className="font-bold">{(article.recaDollars * article.quantity).toFixed(1)}</div>
               </div>
             </div>
           </Card>
