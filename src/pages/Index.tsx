@@ -13,24 +13,24 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 p-3">
       <div className="max-w-md mx-auto">
-        {/* Rates Configuration - More prominent */}
-        <div className="mb-4 flex justify-center">
-          <Card className="overflow-hidden shadow-md border border-gray-200 rounded-2xl w-full">
+        {/* Rates Configuration - Smaller size */}
+        <div className="mb-3 flex justify-center">
+          <Card className="overflow-hidden shadow-sm border border-gray-200 rounded-xl w-full">
             <div 
-              className="px-5 py-4 cursor-pointer flex items-center justify-center gap-3 hover:bg-gray-50 transition-all duration-200 rounded-2xl active:scale-95"
+              className="px-3 py-2 cursor-pointer flex items-center justify-center gap-2 hover:bg-gray-50 transition-all duration-200 rounded-xl active:scale-95"
               onClick={() => setShowRatesConfig(!showRatesConfig)}
             >
-              <DollarSign className="w-6 h-6 text-gray-500" />
-              <span className="text-base font-semibold text-gray-700">Configurar Tasas</span>
+              <DollarSign className="w-4 h-4 text-gray-500" />
+              <span className="text-sm font-medium text-gray-700">Configurar Tasas</span>
               {showRatesConfig ? (
-                <ChevronUp className="w-5 h-5 text-gray-500" />
+                <ChevronUp className="w-4 h-4 text-gray-500" />
               ) : (
-                <ChevronDown className="w-5 h-5 text-gray-500" />
+                <ChevronDown className="w-4 h-4 text-gray-500" />
               )}
             </div>
             
             <div className={`transition-all duration-300 ease-in-out ${showRatesConfig ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
-              <div className="px-4 pb-4">
+              <div className="px-3 pb-3">
                 <RatesConfig
                   bcvRate={bcvRate}
                   parallelRate={parallelRate}
